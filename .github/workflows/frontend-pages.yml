@@ -18,11 +18,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -30,18 +27,24 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '24'
-      - name: Install frontend dependencies
+      - name: Install dependencies
         working-directory: frontend
         run: npm install --no-audit --no-fund
-      - name: Build frontend
+      - name: Build
         working-directory: frontend
         run: npm run build -- --mode pages
-      - name: Configure Pages
-        uses: actions/configure-pages@v5
-      - name: Upload static site
-        uses: actions/upload-pages-artifact@v3
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
         with:
           path: frontend/dist
-      - name: Deploy
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy Pages
         id: deployment
         uses: actions/deploy-pages@v4
