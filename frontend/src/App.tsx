@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { generateSeries, summarize, type Attempt, type Difficulty, type Operator, type Question } from './training';
 import styles from './App.module.scss';
 
-type View = 'start' | 'training' | 'duel';
+type View = 'start' | 'training';
 type Stage = 'setup' | 'active' | 'result';
 const ops: Operator[] = ['+', '−', '×', '÷'];
 const format = (ms: number) => { const s = Math.floor(ms / 1000); return `${String(Math.floor(s / 60)).padStart(2,'0')}:${String(s % 60).padStart(2,'0')}`; };
@@ -70,16 +70,15 @@ export default function App() {
                 <span className={styles.choiceText}><strong>Trening</strong><small>Ćwicz we własnym tempie</small></span>
                 <span className={styles.choiceArrow} aria-hidden="true">↗</span>
               </button>
-              <button type="button" className={styles.choice} onClick={() => go('duel')}>
+              <button type="button" className={`${styles.choice} ${styles.choiceDisabled}`} disabled aria-disabled="true">
                 <span className={styles.choiceSymbol} aria-hidden="true">⚡</span>
-                <span className={styles.choiceText}><strong>Pojedynek 1v1</strong><small>Zmierz się z drugą osobą</small></span>
-                <span className={styles.choiceArrow} aria-hidden="true">↗</span>
+                <span className={styles.choiceText}><strong>Pojedynek 1v1</strong><small>Wkrótce dostępny</small></span>
+                <span className={styles.choiceArrow} aria-hidden="true">—</span>
               </button>
             </div>
           </div>
           <div className={styles.homeArt} aria-hidden="true"><div className={styles.numberHalo}><span className={styles.haloNumber}>07</span><span className={styles.haloMath}>9 × 8 = 72</span></div><span className={styles.mathFloat}>+ − × ÷</span></div>
         </section>}
-        {view === 'duel' && <section className={styles.waiting}><h1>Pojedynek <em>1v1</em></h1><p>Tworzenie pokoi, kody zaproszeń i rozgrywka na dwóch urządzeniach pojawią się w kolejnym etapie.</p><span className={styles.tag}>W PRZYGOTOWANIU</span><button className={styles.secondary} onClick={() => go('start')}>← Powrót</button></section>}
         {view === 'training' && <section className={styles.workspace}>
           <aside className={styles.settings}><div className={styles.panelTitle}><h2>Ustawienia</h2></div>
             <label>RODZAJ DZIAŁAŃ</label><div className={styles.operators}>{ops.map(op => <button key={op} disabled={stage === 'active'} aria-pressed={selected.includes(op)} className={selected.includes(op) ? styles.chosen : ''} onClick={() => setSelected(old => old.includes(op) ? old.filter(x => x !== op) : [...old, op])}>{op}</button>)}</div>
