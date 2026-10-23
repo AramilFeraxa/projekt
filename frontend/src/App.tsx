@@ -49,7 +49,7 @@ export default function App() {
     if (index + 1 === questions.length) setStage('result'); else { setIndex(index + 1); questionStart.current = now; }
     locked.current = false;
   };
-  return <div className={styles.shell}><div className={styles.glowA}/><div className={styles.glowB}/>
+  return <div className={styles.shell}>
     <div className={styles.frame}>
       <header className={styles.header}>
         <button className={styles.brand} onClick={() => go('start')} aria-label="Math Duel — ekran startowy">
