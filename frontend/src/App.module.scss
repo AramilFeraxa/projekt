@@ -86,3 +86,13 @@ button:focus-visible{outline:2px solid $aqua;outline-offset:2px}
 @media(max-width:760px) { .header {height:75px;flex-direction:row;justify-content:space-between;gap:8px;padding:0 20px;} .mark {width:36px;height:36px;border-radius:12px;margin-right:9px;} .markPlus{font-size:25px}.markCross{font-size:21px}.brandName{font-size:22px}.backHome{font-size:11px;padding:10px 12px}.home {padding:4vh 3vw;align-content:center;} .hero h1 {font-size:clamp(57px,12vw,83px)} .homeEyebrow {font-size:9px;} .hero p{margin-bottom:24px;} .choice {padding:13px 14px;gap:14px;border-radius:16px;} .choiceSymbol {width:44px;height:44px;flex-basis:44px;font-size:25px;border-radius:12px;} .choiceText strong {font-size:18px;} .choiceText small {font-size:11px;} }
 @media(max-height:730px) and (min-width:761px) { .hero h1 {font-size:clamp(52px,5.3vw,86px);margin:18px 0 12px;} .hero p{margin-bottom:18px;} .choice{padding:12px 16px;} .homeArt{height:50vh;} }
 @media(prefers-reduced-motion:reduce) { .main > section,.numberHalo,.mathFloat,.settings,.arena,.stats,.bigGlyph {animation:none!important;} .choice,.choiceArrow,.primary,.secondary,.backHome,.track>div {transition:none!important;} }
+
+/* Home heading and restrained selection states */
+.homeEyebrow { font-family:'Manrope',sans-serif; font-weight:600; font-size:clamp(17px,1.7vw,23px); text-transform:none; letter-spacing:0; color:#cad8f1; }
+.hero h1 { font-family:'Space Grotesk',sans-serif; font-style:normal; font-weight:700; font-size:clamp(55px,6vw,100px); letter-spacing:-.055em; line-height:1.04; max-width:760px; text-wrap:balance; }
+.choice { transition:background-color .18s ease,border-color .18s ease; }
+.choice:hover { transform:none; background:rgba(151,243,222,.12); border-color:rgba(131,241,223,.52); box-shadow:inset 0 1px rgba(255,255,255,.11),0 12px 35px rgba(0,0,0,.08); }
+.choice:active { transform:none; }
+.choiceArrow { transition:none; }
+.choice:hover .choiceArrow { transform:none; }
+@media(max-width:760px) { .hero h1 { font-size:clamp(42px,10vw,72px); } .homeEyebrow { font-size:17px; } }

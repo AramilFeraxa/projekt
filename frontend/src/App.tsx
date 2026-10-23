@@ -61,8 +61,8 @@ export default function App() {
       <main className={styles.main}>
         {view === 'start' && <section className={styles.home}>
           <div className={styles.hero}>
-            <span className={styles.homeEyebrow}>TRENUJ UMYSŁ. SPRAWDŹ REFLEKS.</span>
-            <h1>Szybkie<br /><em>liczenie.</em></h1>
+            <span className={styles.homeEyebrow}>Sprawdź swój umysł</span>
+            <h1>SZYBKIE LICZENIE</h1>
             <p>Wybierz tryb i zaczynaj.</p>
             <div className={styles.choices}>
               <button type="button" className={styles.choice} onClick={() => go('training')}>
