@@ -51,27 +51,52 @@ export default function App() {
   };
   return <div className={styles.shell}><div className={styles.glowA}/><div className={styles.glowB}/>
     <div className={styles.frame}>
-      <header className={styles.header}><button className={styles.brand} onClick={() => go('start')}><span className={styles.mark}>∑</span> MATH<span className={styles.accent}>/</span>DUEL</button><nav aria-label="Nawigacja główna"><button className={view === 'start' ? styles.active : ''} onClick={() => go('start')}>Start</button><button className={view === 'training' ? styles.active : ''} onClick={() => go('training')}>Trening</button><button className={view === 'duel' ? styles.active : ''} onClick={() => go('duel')}>Pojedynek 1v1</button></nav><span className={styles.online}><i/> WERSJA TESTOWA</span></header>
+      <header className={styles.header}>
+        <button className={styles.brand} onClick={() => go('start')} aria-label="Math Duel — ekran startowy">
+          <span className={styles.mark} aria-hidden="true"><span className={styles.markPlus}>+</span><span className={styles.markCross}>×</span></span>
+          <span className={styles.brandName}>math<span>duel</span><span className={styles.brandPeriod}>.</span></span>
+        </button>
+        {view !== 'start' && <button className={styles.backHome} onClick={() => go('start')}>← Wróć na start</button>}
+      </header>
       <main className={styles.main}>
-        {view === 'start' && <section className={styles.home}><div className={styles.hero}><span className={styles.eyebrow}>01 / MATEMATYKA W PRAKTYCE</span><h1>Trening<br/><em>szybkiego</em><br/>liczenia<span className={styles.accent}>.</span></h1><p>Trenuj refleks i precyzję. Jedno działanie po drugim, we własnym tempie.</p><button className={styles.primary} onClick={() => go('training')}>Rozpocznij trening <span>↗</span></button></div><div className={styles.visual} aria-hidden="true"><div className={styles.orbit}><div className={styles.innerOrbit}><span>18 × 7</span><strong>126</strong></div></div><span className={styles.orbitText}>+ − × ÷</span></div></section>}
-        {view === 'duel' && <section className={styles.waiting}><span className={styles.eyebrow}>02 / MULTIPLAYER</span><h1>Pojedynek <em>1v1</em></h1><p>Tworzenie pokoi, kody zaproszeń i rozgrywka na dwóch urządzeniach pojawią się w kolejnym etapie.</p><span className={styles.tag}>W PRZYGOTOWANIU</span><button className={styles.secondary} onClick={() => go('start')}>← Powrót</button></section>}
+        {view === 'start' && <section className={styles.home}>
+          <div className={styles.hero}>
+            <span className={styles.homeEyebrow}>TRENUJ UMYSŁ. SPRAWDŹ REFLEKS.</span>
+            <h1>Szybkie<br /><em>liczenie.</em></h1>
+            <p>Wybierz tryb i zaczynaj.</p>
+            <div className={styles.choices}>
+              <button type="button" className={styles.choice} onClick={() => go('training')}>
+                <span className={styles.choiceSymbol} aria-hidden="true">∑</span>
+                <span className={styles.choiceText}><strong>Trening</strong><small>Ćwicz we własnym tempie</small></span>
+                <span className={styles.choiceArrow} aria-hidden="true">↗</span>
+              </button>
+              <button type="button" className={styles.choice} onClick={() => go('duel')}>
+                <span className={styles.choiceSymbol} aria-hidden="true">⚡</span>
+                <span className={styles.choiceText}><strong>Pojedynek 1v1</strong><small>Zmierz się z drugą osobą</small></span>
+                <span className={styles.choiceArrow} aria-hidden="true">↗</span>
+              </button>
+            </div>
+          </div>
+          <div className={styles.homeArt} aria-hidden="true"><div className={styles.numberHalo}><span className={styles.haloNumber}>07</span><span className={styles.haloMath}>9 × 8 = 72</span></div><span className={styles.mathFloat}>+ − × ÷</span></div>
+        </section>}
+        {view === 'duel' && <section className={styles.waiting}><h1>Pojedynek <em>1v1</em></h1><p>Tworzenie pokoi, kody zaproszeń i rozgrywka na dwóch urządzeniach pojawią się w kolejnym etapie.</p><span className={styles.tag}>W PRZYGOTOWANIU</span><button className={styles.secondary} onClick={() => go('start')}>← Powrót</button></section>}
         {view === 'training' && <section className={styles.workspace}>
-          <aside className={styles.settings}><div className={styles.panelTitle}><span className={styles.eyebrow}>01 / PARAMETRY</span><h2>Ustawienia</h2></div>
+          <aside className={styles.settings}><div className={styles.panelTitle}><h2>Ustawienia</h2></div>
             <label>RODZAJ DZIAŁAŃ</label><div className={styles.operators}>{ops.map(op => <button key={op} disabled={stage === 'active'} aria-pressed={selected.includes(op)} className={selected.includes(op) ? styles.chosen : ''} onClick={() => setSelected(old => old.includes(op) ? old.filter(x => x !== op) : [...old, op])}>{op}</button>)}</div>
             <label htmlFor="difficulty">POZIOM TRUDNOŚCI</label><select id="difficulty" disabled={stage === 'active'} value={difficulty} onChange={e => setDifficulty(e.target.value as Difficulty)}><option value="easy">Łatwy</option><option value="medium">Średni</option><option value="hard">Trudny</option></select>
             <label htmlFor="limit">LICZBA ZADAŃ</label><select id="limit" disabled={stage === 'active'} value={limit} onChange={e => setLimit(Number(e.target.value))}><option value={10}>10 działań</option><option value={20}>20 działań</option><option value={30}>30 działań</option></select>
             {stage === 'active' ? <button className={styles.secondary} onClick={() => { setStage('setup'); setElapsed(0); }}>Przerwij trening</button> : <button className={styles.primary} disabled={!selected.length} onClick={start}>{stage === 'result' ? 'Nowa sesja' : 'Rozpocznij'} <span>↗</span></button>}
             {!selected.length && <p className={styles.notice}>Wybierz co najmniej jedno działanie.</p>}
           </aside>
-          <section className={styles.arena}><div className={styles.arenaTop}><span className={styles.eyebrow}>02 / TRENING</span><span className={styles.tag}>{stage === 'active' ? '● SESJA AKTYWNA' : '● LOKALNY PROTOTYP'}</span></div>
+          <section className={styles.arena}><div className={styles.arenaTop}><span className={styles.tag}>{stage === 'active' ? '● SESJA AKTYWNA' : '● GOTOWY DO TRENINGU'}</span></div>
             {stage === 'setup' && <div className={styles.arenaCenter}><span className={styles.bigGlyph}>∑</span><h2>Gotowy na trening?</h2><p>Wybierz parametry po lewej i rozpocznij serię.</p><button className={styles.primary} disabled={!selected.length} onClick={start}>Start <span>→</span></button></div>}
             {stage === 'active' && <div className={styles.arenaCenter}><span className={styles.eyebrow}>ZADANIE {String(index + 1).padStart(2,'0')} / {limit}</span><div className={styles.equation}>{questions[index]?.label} <span className={styles.accent}>= ?</span></div><form className={styles.answerForm} onSubmit={submit}><input ref={input} aria-label="Wynik działania" inputMode="numeric" autoComplete="off" placeholder="Twój wynik" value={answer} onChange={e => setAnswer(e.target.value)} /><button type="submit" disabled={!answer.trim()}>Sprawdź ↗</button></form><small role="status">{error || 'ENTER ↵ ABY ZATWIERDZIĆ'}</small></div>}
             {stage === 'result' && <div className={styles.arenaCenter}><span className={styles.eyebrow}>TRENING UKOŃCZONY</span><h2>Sesja zakończona.</h2><div className={styles.finalScore}>{summary.accuracy}<span>%</span></div><p>{summary.correct} poprawnych odpowiedzi na {attempts.length}</p><button className={styles.primary} onClick={start}>Jeszcze raz ↗</button></div>}
             <div className={styles.progress}><div><span>POSTĘP</span><span>{progress}%</span></div><div className={styles.track}><div style={{width:`${progress}%`}}/></div></div>
           </section>
-          <aside className={styles.stats}><div className={styles.panelTitle}><span className={styles.eyebrow}>03 / STATYSTYKI</span><h2>Na żywo</h2></div>{[['CZAS', format(elapsed)],['POPRAWNE', String(summary.correct)],['BŁĘDNE', String(summary.incorrect)],['SERIA', String(streak)],['SKUTECZNOŚĆ', `${summary.accuracy}%`],...(stage === 'result' ? [['ŚREDNI CZAS', `${summary.averageSeconds.toFixed(1)} s`]] : [])].map(([name,value]) => <div className={styles.stat} key={name}><span>{name}</span><strong>{value}</strong></div>)}</aside>
+          <aside className={styles.stats}><div className={styles.panelTitle}><h2>Na żywo</h2></div>{[['CZAS', format(elapsed)],['POPRAWNE', String(summary.correct)],['BŁĘDNE', String(summary.incorrect)],['SERIA', String(streak)],['SKUTECZNOŚĆ', `${summary.accuracy}%`],...(stage === 'result' ? [['ŚREDNI CZAS', `${summary.averageSeconds.toFixed(1)} s`]] : [])].map(([name,value]) => <div className={styles.stat} key={name}><span>{name}</span><strong>{value}</strong></div>)}</aside>
         </section>}
-      </main><footer className={styles.footer}><span>SZYBKIE LICZENIE 1V1</span><span>PROJEKT INŻYNIERSKI · PROTOTYP</span></footer>
+      </main>
     </div>
   </div>;
 }

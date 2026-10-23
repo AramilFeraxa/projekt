@@ -34,3 +34,55 @@ button:focus-visible{outline:2px solid $aqua;outline-offset:2px}
 @media(max-width:1180px){.frame{width:calc(100% - 24px);height:calc(100dvh - 24px);margin:12px auto}.header{padding:0 23px}.online{display:none}.main{padding:15px}.workspace{grid-template-columns:minmax(170px,.85fr) minmax(280px,2fr) minmax(145px,.7fr);gap:10px}.settings,.stats,.arena{padding:17px}.panelTitle h2{font-size:21px}.operators{gap:3px}.operators button{height:40px}}
 @media(max-width:760px){.shell{height:100dvh}.frame{margin:0;width:100%;height:100dvh;border-radius:0;border:0}.header{height:116px;flex-direction:column;justify-content:center;gap:12px}.header nav{width:100%;justify-content:center}.header nav button{padding:9px 13px;font-size:12px}.main{overflow-y:auto;min-height:0;padding:12px}.home{grid-template-columns:1fr;padding:8vh 7vw;align-content:center}.hero h1{font-size:clamp(48px,11vw,79px)}.visual{display:none}.workspace{grid-template-columns:1fr;display:flex;flex-direction:column;gap:12px;min-height:100%}.settings{overflow:visible;display:grid;grid-template-columns:1fr 1fr;column-gap:14px;align-items:end}.settings .panelTitle{grid-column:1/-1;margin-bottom:0}.settings label{margin:12px 0 8px}.settings .operators{grid-column:1/-1}.settings .primary,.settings .secondary{margin-top:8px}.settings label[for="difficulty"]{grid-column:1}.settings select{height:42px}.settings label[for="limit"]{grid-column:2;grid-row:3}.settings #limit{grid-column:2}.arena{min-height:430px;flex:1}.stats{overflow:visible;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stats .panelTitle{grid-column:1/-1;margin-bottom:0}.stat{padding:8px 0}.stat strong{font-size:26px}.footer{height:35px;padding:0 15px;font-size:9px}.equation{font-size:clamp(36px,9vw,65px)}}
 @media(max-width:420px){.settings{display:flex;flex-direction:column;align-items:stretch}.settings .panelTitle{margin-bottom:0}.settings label{margin:8px 0 0}.arena{min-height:360px}.stats{grid-template-columns:repeat(2,1fr)}.footer span:last-child{display:none}}
+
+
+/* Application identity and motion */
+.header { justify-content: space-between; }
+.brand { gap: 0; letter-spacing: -.06em; }
+.mark { position: relative; display: block; width: 44px; height: 44px; margin-right: 13px; border-radius: 15px; transform: rotate(-10deg); background: linear-gradient(135deg, #8cf7e3, #4cabc8); border: 1px solid rgba(255,255,255,.45); color: #092b3f; box-shadow: 0 8px 28px rgba(80,215,200,.22); font-family: 'Space Grotesk',sans-serif; font-weight: 700; }
+.markPlus,.markCross { position: absolute; line-height: 1; }
+.markPlus { top: 0; left: 7px; font-size: 30px; }
+.markCross { bottom: 1px; right: 5px; font-size: 24px; }
+.brandName { font: 700 26px 'Space Grotesk',sans-serif; letter-spacing: -.075em; }
+.brandName > span:first-child { font-weight: 400; }
+.brandPeriod { color: #83f1df; }
+.backHome { border: 1px solid rgba(255,255,255,.14); border-radius: 12px; background: rgba(255,255,255,.075); color: #e4effc; padding: 12px 17px; cursor: pointer; font: 600 13px 'Manrope',sans-serif; transition: background .2s,transform .2s; }
+.backHome:hover { background: rgba(255,255,255,.13); transform: translateX(-3px); }
+.main > section { animation: sceneIn .52s cubic-bezier(.2,.7,.2,1) both; }
+.home { padding: 2vh 6vw; grid-template-columns: 1.12fr .88fr; }
+.hero { position: relative; }
+.homeEyebrow { font: 700 11px 'IBM Plex Mono',monospace; letter-spacing: .2em; color: #83f1df; }
+.hero h1 { font-size: clamp(65px,7.4vw,126px); line-height: .94; margin: 24px 0 18px; }
+.hero h1 em { color: #dce9fe; }
+.hero p { font-size: 17px; margin-bottom: 28px; }
+.choices { width: min(100%,550px); display: flex; flex-direction: column; gap: 12px; }
+.choice { width: 100%; display: flex; align-items: center; gap: 20px; text-align: left; padding: 18px 21px; border: 1px solid rgba(230,245,255,.22); border-radius: 20px; background: linear-gradient(120deg,rgba(255,255,255,.13),rgba(255,255,255,.045)); color: #f4f6ff; box-shadow: inset 0 1px rgba(255,255,255,.11),0 12px 35px rgba(0,0,0,.08); backdrop-filter: blur(22px); cursor: pointer; transition: transform .25s cubic-bezier(.2,.8,.2,1),background .25s,border-color .25s,box-shadow .25s; }
+.choice:hover { transform: translateX(8px); border-color: rgba(131,241,223,.6); background: rgba(151,243,222,.15); box-shadow: 0 20px 50px rgba(0,0,0,.15),inset 0 1px rgba(255,255,255,.17); }
+.choice:active { transform: scale(.985); }
+.choiceSymbol { flex: 0 0 54px; width: 54px; height: 54px; border-radius: 15px; display: grid; place-items: center; background: rgba(131,241,223,.12); color: #83f1df; font: 500 29px 'Space Grotesk',sans-serif; }
+.choiceText { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+.choiceText strong { font: 650 22px 'Space Grotesk',sans-serif; letter-spacing: -.035em; }
+.choiceText small { font: 500 12px 'Manrope',sans-serif; color: #aebad4; }
+.choiceArrow { color: #83f1df; font-size: 25px; transition: transform .25s; }
+.choice:hover .choiceArrow { transform: translate(3px,-3px); }
+.homeArt { position: relative; height: min(57vh,570px); display: grid; place-items: center; }
+.numberHalo { width: min(33vw,470px); aspect-ratio: 1; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid rgba(174,240,238,.25); background: radial-gradient(circle at 43% 34%,rgba(131,241,223,.13),rgba(131,241,223,.025) 56%,transparent 70%); box-shadow: 0 0 0 48px rgba(140,200,240,.025),0 0 0 96px rgba(140,200,240,.023),inset 0 0 55px rgba(131,241,223,.03); animation: haloFloat 7s ease-in-out infinite; }
+.haloNumber { font: 600 clamp(110px,15vw,225px)/1 'Space Grotesk',sans-serif; letter-spacing: -.11em; color: rgba(217,248,253,.88); transform: translateX(-.06em); }
+.haloMath { color: #83f1df; font: 600 14px 'IBM Plex Mono',monospace; letter-spacing: .16em; }
+.mathFloat { position:absolute; right:3%; bottom:4%; color:rgba(167,214,226,.5);font:600 18px 'IBM Plex Mono',monospace;letter-spacing: .4em; animation: drift 9s ease-in-out infinite; }
+.settings,.arena,.stats { animation: panelRise .55s both; }
+.arena { animation-delay: .07s; }
+.stats { animation-delay: .14s; }
+.primary,.secondary { transition: transform .22s,background .22s,box-shadow .22s; }
+.primary:hover:not(:disabled) { box-shadow: 0 9px 30px rgba(131,241,223,.19); }
+.bigGlyph { animation: glyphPulse 4s ease-in-out infinite; }
+.track>div { transition: width .35s ease; }
+@keyframes sceneIn { from { opacity:0; transform: translateY(15px); } to { opacity:1; transform: translateY(0); } }
+@keyframes panelRise { from { opacity:0; transform: translateY(13px); } to { opacity:1; transform: translateY(0); } }
+@keyframes haloFloat { 0%,100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-17px) rotate(2deg); } }
+@keyframes drift { 0%,100% { transform: translateY(0); } 50% { transform:translateY(11px); } }
+@keyframes glyphPulse { 0%,100% { opacity:.75; transform:scale(1); } 50% { opacity:1; transform:scale(1.04); } }
+@media(max-width:1050px) { .home { grid-template-columns:1fr; justify-items:center; text-align:center; padding:3vh 3vw; } .homeArt {display:none;} .hero h1 {font-size:clamp(64px,9vw,100px);} .choices {margin-inline:auto;} }
+@media(max-width:760px) { .header {height:75px;flex-direction:row;justify-content:space-between;gap:8px;padding:0 20px;} .mark {width:36px;height:36px;border-radius:12px;margin-right:9px;} .markPlus{font-size:25px}.markCross{font-size:21px}.brandName{font-size:22px}.backHome{font-size:11px;padding:10px 12px}.home {padding:4vh 3vw;align-content:center;} .hero h1 {font-size:clamp(57px,12vw,83px)} .homeEyebrow {font-size:9px;} .hero p{margin-bottom:24px;} .choice {padding:13px 14px;gap:14px;border-radius:16px;} .choiceSymbol {width:44px;height:44px;flex-basis:44px;font-size:25px;border-radius:12px;} .choiceText strong {font-size:18px;} .choiceText small {font-size:11px;} }
+@media(max-height:730px) and (min-width:761px) { .hero h1 {font-size:clamp(52px,5.3vw,86px);margin:18px 0 12px;} .hero p{margin-bottom:18px;} .choice{padding:12px 16px;} .homeArt{height:50vh;} }
+@media(prefers-reduced-motion:reduce) { .main > section,.numberHalo,.mathFloat,.settings,.arena,.stats,.bigGlyph {animation:none!important;} .choice,.choiceArrow,.primary,.secondary,.backHome,.track>div {transition:none!important;} }
