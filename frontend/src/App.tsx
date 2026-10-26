@@ -5,7 +5,7 @@ import styles from './App.module.scss';
 type View = 'start' | 'training';
 type Stage = 'setup' | 'active' | 'result';
 const ops: Operator[] = ['+', '−', '×', '÷'];
-const format = (ms: number) => { const s = Math.floor(ms / 1000); return `${String(Math.floor(s / 60)).padStart(2,'0')}:${String(s % 60).padStart(2,'0')}`; };
+const format = (ms: number) => { const s = Math.floor(ms / 1000); return `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}`; };
 
 export default function App() {
   const [view, setView] = useState<View>('start');
@@ -87,15 +87,14 @@ export default function App() {
             {stage === 'active' ? <button className={styles.secondary} onClick={() => { setStage('setup'); setElapsed(0); }}>Przerwij trening</button> : <button className={styles.primary} disabled={!selected.length} onClick={start}>{stage === 'result' ? 'Nowa sesja' : 'Rozpocznij'} <span>↗</span></button>}
             {!selected.length && <p className={styles.notice}>Wybierz co najmniej jedno działanie.</p>}
           </aside>
-          <section className={styles.arena}><div className={styles.arenaTop}><span className={styles.tag}>{stage === 'active' ? '● SESJA AKTYWNA' : '● GOTOWY DO TRENINGU'}</span></div>
-            {stage === 'setup' && <div className={styles.arenaCenter}><span className={styles.bigGlyph}>∑</span><h2>Gotowy na trening?</h2><p>Wybierz parametry po lewej i rozpocznij serię.</p><button className={styles.primary} disabled={!selected.length} onClick={start}>Start <span>→</span></button></div>}
-            {stage === 'active' && <div className={styles.arenaCenter}><span className={styles.eyebrow}>ZADANIE {String(index + 1).padStart(2,'0')} / {limit}</span><div className={styles.equation}>{questions[index]?.label} <span className={styles.accent}>= ?</span></div><form className={styles.answerForm} onSubmit={submit}><input ref={input} aria-label="Wynik działania" inputMode="numeric" autoComplete="off" placeholder="Twój wynik" value={answer} onChange={e => setAnswer(e.target.value)} /><button type="submit" disabled={!answer.trim()}>Sprawdź ↗</button></form><small role="status">{error || 'ENTER ↵ ABY ZATWIERDZIĆ'}</small></div>}
+            {stage === 'setup' && <div className={styles.arenaCenter}><span className={styles.bigGlyph}>∑</span><h2>Gotowy na trening?</h2><p>Wybierz parametry aby rozpocząć.</p><button className={styles.primary} disabled={!selected.length} onClick={start}>Start <span>→</span></button></div>}
+            {stage === 'active' && <div className={styles.arenaCenter}><span className={styles.eyebrow}>ZADANIE {String(index + 1).padStart(2, '0')} / {limit}</span><div className={styles.equation}>{questions[index]?.label} <span className={styles.accent}>= ?</span></div><form className={styles.answerForm} onSubmit={submit}><input ref={input} aria-label="Wynik działania" inputMode="numeric" autoComplete="off" placeholder="Twój wynik" value={answer} onChange={e => setAnswer(e.target.value)} /><button type="submit" disabled={!answer.trim()}>Sprawdź ↗</button></form><small role="status">{error || 'ENTER ↵ ABY ZATWIERDZIĆ'}</small></div>}
             {stage === 'result' && <div className={styles.arenaCenter}><span className={styles.eyebrow}>TRENING UKOŃCZONY</span><h2>Sesja zakończona.</h2><div className={styles.finalScore}>{summary.accuracy}<span>%</span></div><p>{summary.correct} poprawnych odpowiedzi na {attempts.length}</p><button className={styles.primary} onClick={start}>Jeszcze raz ↗</button></div>}
-            <div className={styles.progress}><div><span>POSTĘP</span><span>{progress}%</span></div><div className={styles.track}><div style={{width:`${progress}%`}}/></div></div>
+            <div className={styles.progress}><div><span>POSTĘP</span><span>{progress}%</span></div><div className={styles.track}><div style={{ width: `${progress}%` }} /></div></div>
           </section>
-          <aside className={styles.stats}><div className={styles.panelTitle}><h2>Na żywo</h2></div>{[['CZAS', format(elapsed)],['POPRAWNE', String(summary.correct)],['BŁĘDNE', String(summary.incorrect)],['SERIA', String(streak)],['SKUTECZNOŚĆ', `${summary.accuracy}%`],...(stage === 'result' ? [['ŚREDNI CZAS', `${summary.averageSeconds.toFixed(1)} s`]] : [])].map(([name,value]) => <div className={styles.stat} key={name}><span>{name}</span><strong>{value}</strong></div>)}</aside>
+          <aside className={styles.stats}><div className={styles.panelTitle}><h2>Na żywo</h2></div>{[['CZAS', format(elapsed)], ['POPRAWNE', String(summary.correct)], ['BŁĘDNE', String(summary.incorrect)], ['SERIA', String(streak)], ['SKUTECZNOŚĆ', `${summary.accuracy}%`], ...(stage === 'result' ? [['ŚREDNI CZAS', `${summary.averageSeconds.toFixed(1)} s`]] : [])].map(([name, value]) => <div className={styles.stat} key={name}><span>{name}</span><strong>{value}</strong></div>)}</aside>
         </section>}
-      </main>
-    </div>
-  </div>;
+    </main>
+  </div>
+  </div >;
 }
